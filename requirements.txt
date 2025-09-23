@@ -7,3 +7,4 @@ dashscope~=1.24.4
 streamlit~=1.49.1
 openai~=1.107.2
 langchain-core~=0.3.75
+llama-index-core~=0.14.2

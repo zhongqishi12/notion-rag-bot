@@ -3,7 +3,6 @@ import streamlit as st
 from dotenv import load_dotenv
 
 from langchain_community.vectorstores import FAISS
-from langchain.schema import Document
 from openai import OpenAI
 
 # 你写过的 DashScope Embeddings 类
@@ -45,20 +44,23 @@ if prompt := st.chat_input("请输入你的问题..."):
 
     # 拼接 Prompt
     full_prompt = f"""你是一个知识库助手，请仅基于以下内容回答问题。
-内容:
-{context}
+    内容:
+    {context}
 
-问题: {prompt}
-"""
+    问题: {prompt}
+    """
 
     # 调用 LLM
     resp = client.chat.completions.create(
         model="qwen-plus",
         messages=[{"role": "user", "content": full_prompt}],
     )
+
     answer = resp.choices[0].message.content
+    sources = [d.metadata.get("source") for d in docs]
 
     # 展示助手回答
     with st.chat_message("assistant"):
         st.markdown(answer)
+        st.markdown(f"**来源:** {sources}")
     st.session_state.messages.append({"role": "assistant", "content": answer})
