@@ -6,7 +6,7 @@ from langchain_community.vectorstores import FAISS
 from openai import OpenAI
 
 # 你写过的 DashScope Embeddings 类
-from build_rag import DashScopeEmbeddings
+from build_vector_db import DashScopeEmbeddings
 
 load_dotenv()
 
